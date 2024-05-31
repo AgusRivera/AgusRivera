@@ -52,7 +52,7 @@ namespace AMVTravels.Controllers
                         return Json(new {success = true});
                     }
                     var errors = string.Join(",", res.Errors.Select(e => e.Description));
-                    return Json(new { success = false, message = "Ocurrió un error en la creación del Usuario" });
+                    return Json(new { success = false, message = $"Ocurrió un error en la creación del Usuario: {errors}" });
                 }
 
             }
