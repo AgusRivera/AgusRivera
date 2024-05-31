@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Register";
+}
+
+<link rel="stylesheet" href="~/css/register.css" asp-append-version="true">
+
+<div class="container vh-100 d-flex justify-content-center align-items-center flex-column">
+    <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 100%; max-width: 400px;">
+        <div class="card-body">
+            <h3 class="card-title text-center mb-4">Registrarse</h3>
+            <form id="registerForm">
+                <div class="form-group mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name= "Email" placeholder="Ingrese su email">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="Password" placeholder="Ingrese su Contraseña">
+                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                            <i class="fa fa-eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword" placeholder="Confirme su Contraseña">
+                        <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                            <i class="fa fa-eye" id="toggleConfirmIcon"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="businessArea" class="form-label">Area/Sector (Business Area)</label>
+                    <input type="text" class="form-control" id="businessArea" name="BusinessArea" placeholder="Ingrese su Area o Sector">
+                </div>
+                <br />
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/register.js"></script>

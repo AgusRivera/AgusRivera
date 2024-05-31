@@ -1,0 +1,19 @@
+﻿body {
+    background-image: url('../img/loginpick.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+}
+
+.form-control:focus, .btn:focus {
+    box-shadow: none;
+}
+
+.text-white {
+    color: white !important;
+}

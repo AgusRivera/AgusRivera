@@ -1,0 +1,17 @@
+﻿.navbar-right .navbar-text {
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+    margin-right: 15px;
+}
+
+.navbar-right .btn-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.navbar-right .btn-link:hover,
+.navbar-right .btn-link:focus {
+    text-decoration: underline;
+}

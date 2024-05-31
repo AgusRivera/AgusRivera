@@ -1,0 +1,50 @@
+﻿body {
+    background: url('../img/manager.jpg') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.99;
+}
+
+.content {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 170px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.content h2 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table {
+    width: 100%;
+    font-size: 1.25rem;
+    margin-top: -20px;
+}
+
+.partial-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.btn-custom {
+    color: #fff;
+    background-color: #ff7f0e; /* Naranja */
+    border-color: #ff7f0e; /* Borde naranja */
+}
+
+.btn-custom:hover {
+    color: #fff;
+    background-color: #ff9911; /* Naranja más claro al pasar el mouse */
+    border-color: #ff9911; /* Borde naranja más claro al pasar el mouse */
+}

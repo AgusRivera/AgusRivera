@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AMVTravels.Models.Entities.Identity
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<link rel="stylesheet" href="~/css/loginPartial.css" />
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form id="logoutForm" class="navbar-right">
+        @Html.AntiForgeryToken()
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <span class="navbar-text font-weight-bold">USUARIO: @UserManager.GetUserName(User)</span>
+            </li>
+            <li>
+                <a id="logoutLink" href="#">Cerrar Sesión</a>
+            </li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <span class="navbar-text font-weight-bold">USUARIO ANONIMO</span>
+    </ul>
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/loginPartial.js" asp-append-version="true"></script>
+

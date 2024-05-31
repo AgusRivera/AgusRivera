@@ -1,0 +1,197 @@
+﻿@using AMVTravels.Abstractions
+@using AMVTravels.Models.ViewModels
+@model IOperationResult<ReservationViewModel>;
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Manager";
+}
+
+<link rel="stylesheet" href="~/css/manager.css" asp-append-version="true">
+
+<div class="container">
+    <div class="content">
+        <h2 class="text-center">Gestión de Reservas</h2>
+        <br />
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Fecha Reserva</th>
+                    <th>Tour</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reserva in Model.Value.Reservations)
+                {
+                    <tr>
+                        <td>@reserva.Id</td>
+                        <td>@reserva.ClientName</td>
+                        <td>@reserva.ReservationDate.ToShortDateString()</td>
+                        <td>@reserva.TourName</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="@reserva.Id">Eliminar </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button class="btn btn-success btn-sm" id="addReservationBtn">Agregar Reserva</button>
+        <button class="btn btn-custom btn-sm" id="showToursBtn">Mostrar Tours</button>
+    </div>
+</div>
+
+<!-- Modal Reservation Delete-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro que desea eliminar la reserva?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">CONFIRMAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tour Delete-->
+<div class="modal fade" id="deleteTourModal" tabindex="-1" aria-labelledby="deleteTourModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteTourModalLabel">Confirmación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro que desea eliminar el tour?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">CONFIRMAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Reservation Create -->
+<div class="modal fade" id="addReservationModal" tabindex="-1" aria-labelledby="addReservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addReservationModalLabel">Agregar Reserva</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para agregar reserva -->
+                <form id="addReservationForm">
+                    <div class="mb-3">
+                        <label for="clientName" class="form-label">Nombre Cliente:</label>
+                        <input type="text" class="form-control" id="clientName" placeholder="Ingrese el nombre del cliente">
+                    </div>
+                    <div class="mb-3">
+                        <label for="reservationDate" class="form-label">Fecha de Reserva:</label>
+                        <input type="date" class="form-control" id="reservationDate">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tourSelect" class="form-label">Tour:</label>
+                        <select class="form-select" id="tourSelect">
+                            <!-- Opciones del ComboBox se cargarán dinámicamente -->
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmAddReservation">AGREGAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tours -->
+<div class="modal fade" id="showToursModal" tabindex="-1" aria-labelledby="showToursModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showToursModalLabel">Tours Disponibles</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Tour</th>
+                            <th>Destino</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Finalización</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="toursTableBody">
+                        <!-- Aquí se llenarán las filas de la tabla con los datos de tours -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-md" id="addTourBtn">Agregar Tour</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tour Create -->
+<div class="modal fade" id="addTourModal" tabindex="-1" aria-labelledby="addTourModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTourModalLabel">Agregar Tour</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para agregar tour -->
+                <form id="addTourForm">
+                    <div class="mb-3">
+                        <label for="tourName" class="form-label">Nombre Tour:</label>
+                        <input type="text" class="form-control" id="tourName" placeholder="Ingrese el nombre del tour">
+                    </div>
+                    <div class="mb-3">
+                        <label for="destination" class="form-label">Destino:</label>
+                        <input type="text" class="form-control" id="destination" placeholder="Ingrese el destino: 'Ciudad, Nombre'">
+                    </div>
+                    <div class="mb-3">
+                        <label for="startDate" class="form-label">Fecha de Inicio:</label>
+                        <input type="date" class="form-control" id="startDate">
+                    </div>
+                    <div class="mb-3">
+                        <label for="endDate" class="form-label">Fecha de Finalización:</label>
+                        <input type="date" class="form-control" id="endDate">
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Precio:</label>
+                        <input type="number" class="form-control" id="price" placeholder="Ingrese el precio">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmAddTour">AGREGAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/popper/popper.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/manager.js"></script>

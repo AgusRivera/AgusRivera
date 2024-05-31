@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Home Page";
+}
+
+<link rel="stylesheet" href="~/css/home.css" asp-append-version="true">
+
+<div class="parallax"></div>
+
+<div class="container content bg-green">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4 text-white">Bienvenido al Gestor de Reservas AMV Travel</h1>
+            <br />
+            <br />
+            <p class="lead text-white">Sistema integral de administración de reservas y viajes de la empresa AMV Travel.</p>
+            <hr class="my-4">
+            <p class="text-white"> Por favor, para ingresar al sistema deberá autenticarse con sus credenciales.</p>
+            <a class="btn btn-primary btn-lg" href="@Url.Action("Login", "User")" role="button">Ingresar</a>
+        </div>
+    </div>
+</div>
